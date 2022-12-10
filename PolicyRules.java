@@ -1,7 +1,5 @@
 package com.example.enumbit;
 
-import lombok.NonNull;
-
 import java.util.EnumSet;
 import java.util.List;
 
@@ -26,7 +24,10 @@ public enum PolicyRules {
                 : getListRules(value);
     }
 
-    public static long getValue(@NonNull Iterable<PolicyRules> rules) {
+    public static long getValue(Iterable<PolicyRules> rules) {
+        if(rules == null) 
+            throw new NullPointerException("rules1 or rules2 cannot be null");
+        
         long result = 0L;
 
         for (PolicyRules r : rules)
@@ -35,10 +36,10 @@ public enum PolicyRules {
         return result;
     }
 
-    public static Iterable<PolicyRules> compare(
-            @NonNull Iterable<PolicyRules> rules1,
-            @NonNull Iterable<PolicyRules> rules2
-    ) {
+    public static Iterable<PolicyRules> compare(Iterable<PolicyRules> rules1, Iterable<PolicyRules> rules2) {
+        if(rules1 == null || rules2 == null) 
+            throw new NullPointerException("rules1 or rules2 cannot be null");
+        
         return getListRules(getValue(rules1) & getValue(rules2));
     }
 
